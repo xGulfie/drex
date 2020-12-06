@@ -1,0 +1,86 @@
+  <!DOCTYPE html>
+<html >
+<head>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <meta charset="UTF-8">
+  <title>Drex</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div id="canvascontain">
+  <canvas id="bg"></canvas>
+</div>
+
+<div id="sidebar" v-cloak v-if="editorOpen">
+  <h1>Editor</h1>
+
+  <section>
+    <h2>Main Options</h2>
+    <label>squared snap radius<input type="number" v-model="snap"></input></label>
+    <label title="Whether to bring items to the top when selected">resort<input type="checkbox" v-model="resort"></input></label>
+    <label title="Whether to re-scale the canvas window to fit the user's browser">rescale<input type="checkbox" v-model="rescale"></input></label>
+    <label title="Whether to snap the item positions to pixels when moving them freely. Leave off unless you have pixel art">quantize<input type="checkbox" v-model="quantize"></input></label>
+    <label title="Whether to smooth pixels when the image is scaled. Leave on unless you have pixel art.">imageSmoothing<input type="checkbox" v-model="imageSmoothing"></input></label>
+  </section>
+
+  <section>
+    <h2>Data</h2>
+    <button v-on:click="computeItemBounds()">Re-compute image bounds</button>
+    <div>JSON (read only):</div>
+    <textarea v-model="json"></textarea>
+  </section>
+
+  <section>
+    <h2>Background</h2>
+    <img v-bind:src="background.src" class="icon"></img>
+    <label>Source url:
+      <input type="text" v-model = "background.src"></input>
+    </label>
+    <label>Page background:
+      <input type="text" v-model = "pageBackground"></input>
+    </label>
+    <span class="label">Background Preview
+      <div class="icon" v-bind:style="{background:pageBackground}"></div>
+    </span>
+    <span class="label"><button v-on:click="reloadAll">Reload on Canvas</button></span>
+  </section>
+
+  <section>
+    <h2>Items</h2>
+    <ul>
+      <span class="label">
+        <button v-on:click="reloadAll">Reload All Items</button>
+        <button v-on:click="setHomes">Set Home Positions</button>
+      </span>
+      <li v-for="item, index in items">
+        <h3>Item {{index}}:</h3>
+        <span class="label">Preview:<span class="img-contain"><img v-bind:src="item.src" class="icon"></img></span></span>
+        <label>Source URL:
+          <input type="text" v-model="item.src"></input>
+        </label>
+          <label>Slot:
+          <input type="number" v-model="item.slot"></input>
+        </label>
+        <span class="label"><button v-on:click="reloadItem(item)">Reload on Canvas</button></span>
+        <span class="label"><button v-on:click="removeItem(index)">- Remove</button></span>
+        <span class="label"><button v-on:click="moveUp(index)">↑ move up</button></span>
+        <span class="label"><button v-on:click="moveDown(index)">↓ move down</button></span>
+        <span class="label"><button v-on:click="duplicateItem(item)">Duplicate</button></span>
+      </li>
+      <li class="label">
+        <button v-on:click="addItem">+ Add Item</button>
+      </li>
+    </ul>
+  </section>
+
+</div>
+
+<!-- library bundle -->
+<script src="js/bundle.js"></script>
+<!-- app -->
+<script src="js/index.js"></script>
+
+</body>
+</html>
