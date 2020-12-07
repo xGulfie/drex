@@ -2,7 +2,7 @@
 
 This is a HTML5 dress up game engine with a built-in editor.
 
-## [Try it Out!](https://cdn.jsdelivr.net/gh/xgulfie/drex@master/index.html)
+## [Try it Out!](https://xgulfie.github.io/drex/index.html)
 
 # User Guide
 
